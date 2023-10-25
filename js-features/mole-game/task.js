@@ -6,7 +6,7 @@ let counterLost = 0;
 
 
 for (let index = 1; index < 10; index++) {
-    getHole = index => document.getElementById("hole${index}");
+    getHole = index => document.getElementById(`hole${index}`);
     let hole = getHole(index);
 
     hole.onclick = function() {
@@ -17,18 +17,19 @@ for (let index = 1; index < 10; index++) {
                 counterLost++;
                 lost.textContent = counterLost;
             }
+
+        if(counterDead === 10) {
+            hole.onclick = null;
+            dead.textContent = counterDead = 0;
+            lost.textContent = counterLost = 0;  
+            alert("Победа!");
+        }
+
+        if(counterLost === 5) {
+            hole.onclick = null;
+            dead.textContent = counterDead = 0;
+            lost.textContent = counterLost = 0; 
+            alert("Вы проиграли");
+        }
     }
-}
-
-
-if (counterDead === 10) {
-    alert ("Победа!");
-    counterDead = 0;
-    counterLost = 0;  
-}
-
-if (counterLost === 5) {
-    alert ("Вы проиграли");
-    counterDead = 0;
-    counterLost = 0; 
 }
