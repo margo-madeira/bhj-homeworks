@@ -3,7 +3,7 @@
     activeHole = 1;
 
   const stop = () => playing = true,
-    getHole = index => document.getElementById(`hole${index}`),
+    getHole = index => document.getElementById(`hole${index}`), //берем лунку по индексу
     deactivateHole = index =>
       getHole( index ).className = 'hole',
     activateHole = index =>
