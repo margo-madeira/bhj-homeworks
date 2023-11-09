@@ -25,6 +25,19 @@ class Game {
       При неправильном вводе символа - this.fail();
       DOM-элемент текущего символа находится в свойстве this.currentSymbol.
      */
+    const onkey = (e) => {
+    const current = this.currentSymbol;
+    if (e.shiftKey) {
+      return;
+    }
+    if (current.textContent == e.key) {
+      this.success();
+    } else {
+        this.fail();
+      }
+    }
+    document.addEventListener("keydown", onkey);
+
   }
 
   success() {
