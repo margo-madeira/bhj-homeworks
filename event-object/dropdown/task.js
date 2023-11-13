@@ -8,12 +8,13 @@ function openMenu() {
 
 function menuClose(event) {
    
-    menu.classList.remove('.dropdown__list_active');
+    event.preventDefault();
+    menu.classList.remove('dropdown__list_active');
     
     const parent = event.target.closest('.dropdown');
     const btn = parent.querySelector('.dropdown__value');
     btn.textContent = event.target.textContent;
-    return false;
+    
 };
     
 menuName.addEventListener("click", openMenu);
