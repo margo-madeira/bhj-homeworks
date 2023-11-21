@@ -1,26 +1,29 @@
-const arrHasTooltip = Array.from(document.querySelectorAll(".has-tooltip"));
+const hasTooltip = document.querySelectorAll(".has-tooltip");
+const arrHasTooltip = Array.from(hasTooltip);
 
 arrHasTooltip[0].insertAdjacentHTML("beforebegin", "<div></div>");
 const tooltip = arrHasTooltip[0].previousElementSibling;
 tooltip.classList.add("tooltip");
-tooltip.setAttribute("data-position", "bottom");
 
-document.addEventListener("scroll", function() {    
-    for(let i = 0; i < arrHasTooltip.length; i++) {
+for(let i = 0; i < arrHasTooltip.length; i++) {
 
-        const hasTooltipTop = arrHasTooltip[i].getBoundingClientRect().top;
-        const hasTooltipBottom = arrHasTooltip[i].getBoundingClientRect().bottom;
-        const hasTooltipLeft = arrHasTooltip[i].getBoundingClientRect().left;
-        tooltip.style.left = hasTooltipLeft + "px";
-        tooltip.style.top = hasTooltipTop + "px";
+    arrHasTooltip[i].addEventListener("click", (event) => {
+        
+        event.preventDefault();
+        const textTooltip = arrHasTooltip[i].getAttribute("title");
+        if(textTooltip === tooltip.textContent) {
+            tooltip.classList.toggle("tooltip_active");
+            return;
+        } else {
+            tooltip.classList.add("tooltip_active");
+            tooltip.innerText = textTooltip;
 
-        if((hasTooltipTop < window.innerHeight) && (hasTooltipBottom > 0)) {
-
-            arrHasTooltip[i].addEventListener("click", () => {
-                tooltip.classList.add("tooltip_active");
-                tooltip.innerText = arrHasTooltip[i].getAttribute("title");
-            })
+            const hasTooltipBottom = arrHasTooltip[i].getBoundingClientRect().bottom;
+            const hasTooltipLeft = arrHasTooltip[i].getBoundingClientRect().left;
+            tooltip.style.left = hasTooltipLeft + "px";
+            tooltip.style.top = hasTooltipBottom + "px";
         }
-    }
-})
+        
+    })        
+}
 

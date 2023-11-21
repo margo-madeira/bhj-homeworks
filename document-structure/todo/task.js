@@ -1,42 +1,38 @@
 const inputText = document.querySelector(".tasks__input");
 const btnAdd = document.querySelector(".tasks__add");
 const list = document.querySelector(".tasks__list");
-
-const task = document.createElement('div');
-const taskTitle = document.createElement('div');
-const taskRemove = document.createElement('a');
-
-task.classList.add("task");
-taskTitle.classList.add("task__title");
-taskRemove.classList.add("task__remove");
-taskRemove.setAttribute("href", "#");
-taskRemove.innerHTML = "&times;";
+const form = document.querySelector("form");
 
 function newTask() {
+
     
-    list.appendChild(task);
-    task.appendChild(taskTitle);
-    task.appendChild(taskRemove);
+    list.insertAdjacentHTML("afterbegin", "<div><div></div><a></a></div>");
+    const task = list.firstElementChild;
+    const taskTitle = task.firstElementChild;
+    const taskRemove = task.lastElementChild;
+
+    task.classList.add("task");
+    taskTitle.classList.add("task__title");
+    taskRemove.classList.add("task__remove");
+    taskRemove.setAttribute("href", "#");
+    taskRemove.innerHTML = "&times;";
     taskTitle.textContent = inputText.value.trim();
+
+    taskRemove.addEventListener("click", () => {
+        task.remove();
+    });
 }
 
-btnAdd.addEventListener("click", () => {
-    if(inputText.value) {
+btnAdd.addEventListener("click", (event) => {
+    if(inputText.value.trim()) {
         newTask();
     }
+    event.preventDefault();
+    form.reset();
 })
 
-inputText.addEventListener("keydown", (e) => {
-    if(e.code === "Enter" && inputText.value === true) {
-        newTask(); 
-    }
-});
 
-function removeTask() {
-    task.remove();
-}
 
-taskRemove.addEventListener("click", removeTask);
 
 
 
