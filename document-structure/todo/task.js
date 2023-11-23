@@ -5,22 +5,18 @@ const form = document.querySelector("form");
 
 function newTask() {
 
-    
-    list.insertAdjacentHTML("afterbegin", "<div><div></div><a></a></div>");
-    const task = list.firstElementChild;
-    const taskTitle = task.firstElementChild;
-    const taskRemove = task.lastElementChild;
+    list.insertAdjacentHTML("afterbegin", `<div class="task">
+            <div class="task__title">${inputText.value.trim()}</div>
+            <a href="#" class="task__remove">&times;</a>
+        </div>`);
+    const task = Array.from(document.querySelectorAll(".task"));
+    const taskRemove = Array.from(document.querySelectorAll(".task__remove"));
 
-    task.classList.add("task");
-    taskTitle.classList.add("task__title");
-    taskRemove.classList.add("task__remove");
-    taskRemove.setAttribute("href", "#");
-    taskRemove.innerHTML = "&times;";
-    taskTitle.textContent = inputText.value.trim();
-
-    taskRemove.addEventListener("click", () => {
-        task.remove();
-    });
+    for(let i = 0; i < taskRemove.length; i++) {
+        taskRemove[i].addEventListener("click", () => {
+            task[i].remove();
+        });
+    }
 }
 
 btnAdd.addEventListener("click", (event) => {

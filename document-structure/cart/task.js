@@ -31,20 +31,11 @@ for(let i = 0; i < btnAdd.length; i++) {
             arrCartProduct[indProduct].lastElementChild.textContent = Number(arrCartProduct[indProduct].lastElementChild.textContent) + Number(counter[i].textContent);
         } else {
 
-            const cartProduct = document.createElement("div");
-            const imgBasket = document.createElement("img");
-            const countInBasket = document.createElement("div");
-            cartProduct.classList.add("cart__product");
-            imgBasket.classList.add("cart__product-image");
-            countInBasket.classList.add("cart__product-count");
-            
-            cartProduct.dataset.id = product[i].dataset.id;
-            imgBasket.setAttribute("src", img[i].getAttribute("src"));
-            countInBasket.textContent = counter[i].textContent;
-
-            basket.appendChild(cartProduct);
-            cartProduct.appendChild(imgBasket);
-            cartProduct.appendChild(countInBasket);
+            basket.insertAdjacentHTML("afterbegin", `<div class="cart__product" data-id=${product[i].dataset.id}>
+                <img class="cart__product-image" src="${img[i].getAttribute("src")}">
+                <div class="cart__product-count">${counter[i].textContent}</div>
+            </div>`);
         }
+        
     })
 }

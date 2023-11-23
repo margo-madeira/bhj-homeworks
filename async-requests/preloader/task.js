@@ -1,18 +1,27 @@
 const items = document.querySelector(".items");
-const item = document.querySelectorAll(".item");
-const arrItem = Array.from(item);
+const item = document.querySelector(".item");
 const img = document.querySelector("img");
 
 let xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://students.netoservices.ru/nestjs-backend/slow-get-courses');
 xhr.send();
 
-item.insertAdjacentHTML("afterbegin", "<div></div><div></div><div></div>");
-const code = item.children;
-const value = item.children;
-const currency = item.children;
+xhr.addEventListener("readystatechange", () => {
+    if(xhr.readyState === xhr.DONE) {
 
-code.classList.add("item__code");
-value.classList.add("item__value");
-currency.classList.add("item__currency");
+        const resp = xhr.responseText;
+        const answer = JSON.parse(resp);
+
+        for(let i = 0; i < answer.response.Valute.length; i++) {
+
+            item.insertAdjacentHTML("afterbegin", `<div class="item__code">${answer.response.Valute[i].CharCode}</div>
+                <div class="item__value">${answer.response.Valute[i].Value}</div>
+                <div class="item__currency">руб.</div>`);
+        }
+
+        img.classList.remove("loader_active");
+    }
+})
+
+
 
