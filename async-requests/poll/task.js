@@ -12,25 +12,23 @@ xhr.addEventListener("readystatechange", () => {
         const resp = xhr.responseText;
         const text = JSON.parse(resp);
         title.textContent = text.data.title;
-        answers.classList.add("poll__answers_active");
-
+       
         for(let i = 0; i < text.data.answers.length; i++) {
 
-        const btn = document.createElement("button");
-        btn.classList.add("poll__answer");
-        answers.appendChild(btn);
-        btn.textContent = text.data.answers[i];
-
-
+            const btn = document.createElement("button");
+            btn.classList.add("poll__answer");
+            answers.appendChild(btn);
+            btn.textContent = text.data.answers[i];
+        }
+        const arrBtn = Array.from(document.querySelectorAll(".poll__answer"));
+        for(let i = 0; i < arrBtn.length; i++) {
+            arrBtn[i].addEventListener("click", (event) => {
+            event.preventDefault();
+            alert("Спасибо, ваш голос засчитан!");
+            })
         }
 
     }
-    })
+})
 
-    const arrBtn = Array.from(document.querySelectorAll(".poll__answer"));
-    for(let i = 0; i < arrBtn.length; i++) {
-        arrBtn[i].addEventListener("click", (event) => {
-            event.preventDefault();
-            alert("Спасибо, ваш голос засчитан!");
-        })
-    }
+    
