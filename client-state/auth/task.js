@@ -1,6 +1,6 @@
 const form = document.getElementById("signin__form");
-const login = document.getElementsByName("login");
-const password = document.getElementsByName("password");
+const arrInputs = Array.from(document.querySelectorAll('.control'));
+
 const text = document.querySelector('.welcome');
 const id = document.getElementById("user_id");
 const signin = document.getElementById("signin");
@@ -10,12 +10,12 @@ signin.classList.add("signin_active");
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
+    if(arrInputs[0].value.trim() && arrInputs[1].value.trim()) {
 
-    if(login.value.trim() && password.value.trim()) {
-    
         const formData = new FormData(form);
-
         const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://students.netoservices.ru/nestjs-backend/auth');
+        xhr.send(formData);
 
         xhr.addEventListener('load', () => {
     
@@ -30,15 +30,12 @@ form.addEventListener('submit', (e) => {
                 text.classList.add('welcome_active');
                 id.textContent = answer.user_id;
             }
-           
+        
             if(answer.success === false){
                 alert("Неверный логин/пароль");
             }        
         })
-        
-        xhr.open('POST', 'https://students.netoservices.ru/nestjs-backend/auth');
-        xhr.send(formData);
     }
-
 })
+
 

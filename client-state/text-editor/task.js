@@ -2,7 +2,7 @@ const text = document.getElementById('editor');
 
 function restoreText(key) {
     try{
-        return JSON.parse(localStorage.getItem(key));
+        text.value = JSON.parse(localStorage.getItem(key));
     } catch {
         return null;
     }
@@ -10,9 +10,10 @@ function restoreText(key) {
 
 text.addEventListener('input', () => {
     if(text.value.trim()) {
-        localStorage.setItem('text', JSON.stringify(text));
+        localStorage.setItem('text', JSON.stringify(text.value));
     }
 })
+
 window.addEventListener('load', () => {
     restoreText('text');
   });
