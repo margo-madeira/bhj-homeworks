@@ -20,12 +20,7 @@ form.addEventListener('submit', (e) => {
         xhr.addEventListener('load', () => {
     
             const answer = JSON.parse(xhr.responseText);
-            if(storedId === answer.user_id) {
-                signin.classList.remove("signin_active");
-                text.classList.add('welcome_active');
-                id.textContent = answer.user_id;
-            } 
-        
+           
             if(answer.success === true) {
                 localStorage.setItem("id", answer.user_id);
                 signin.classList.remove("signin_active");
