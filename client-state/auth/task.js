@@ -22,7 +22,6 @@ form.addEventListener('submit', (e) => {
             const answer = JSON.parse(xhr.responseText);
             if(storedId === answer.user_id) {
                 signin.classList.remove("signin_active");
-                form.reset();
                 text.classList.add('welcome_active');
                 id.textContent = answer.user_id;
             } 
@@ -30,16 +29,27 @@ form.addEventListener('submit', (e) => {
             if(answer.success === true) {
                 localStorage.setItem("id", answer.user_id);
                 signin.classList.remove("signin_active");
-                form.reset();
                 text.classList.add('welcome_active');
                 id.textContent = answer.user_id;
             }
         
             if(answer.success === false){
                 alert("Неверный логин/пароль");
-            }        
+            }     
         })
     }
 })
 
+window.addEventListener('load', () => {
+                   
+    if(storedId){
+        try{
+            signin.classList.remove("signin_active");
+            text.classList.add('welcome_active');
+            id.textContent = JSON.parse(storedId);
+        } catch {
+                return null;
+        }
+    }                
+})
 
